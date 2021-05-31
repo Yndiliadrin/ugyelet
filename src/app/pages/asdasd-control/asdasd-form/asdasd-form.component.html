@@ -1,0 +1,26 @@
+<form [formGroup]="form">
+  <mat-select placeholder="Kategória" name="item" formControlName="category" class="choose">
+    <mat-option *ngFor="let category of categories" [value]="category">
+      {{category}}
+    </mat-option>
+  </mat-select>
+  <mat-select placeholder="Félév" name="actuality" formControlName="aktuality" class="choose">
+    <mat-option *ngFor="let aktuality of aktualities" [value]="aktuality">
+      {{aktuality}}
+    </mat-option>
+  </mat-select>
+  <br>
+  <mat-form-field appearance="fill" class="text">
+    <mat-label>Szöveg</mat-label>
+    <textarea matInput formControlName="text" rows="20"></textarea>
+  </mat-form-field>
+  <br>
+  <mat-checkbox formControlName="active" id="chbox">Aktuális</mat-checkbox>
+  <br>
+  <button type="submit" [mat-dialog-close]="form.value" [disabled]="form.invalid" mat-raised-button color="primary">
+    Mentés
+  </button>
+  <button type="button" (click)="dialogRef.close()" mat-raised-button color="warn">
+    Mégse
+  </button>
+</form>

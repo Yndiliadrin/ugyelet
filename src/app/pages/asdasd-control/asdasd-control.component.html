@@ -1,0 +1,59 @@
+<button mat-mini-fab (click)="openDialog()">
+  <mat-icon>
+    add
+  </mat-icon>
+</button>
+
+<div class="table-container">
+
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort class="hoverTable">
+
+      <!-- Category Column -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Kategória </th>
+        <td mat-cell *matCellDef="let row"> {{row.category}} </td>
+      </ng-container>
+
+      <!-- Text Column -->
+      <ng-container matColumnDef="text">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Szöveg </th>
+        <td mat-cell *matCellDef="let row"> {{row.text}} </td>
+      </ng-container>
+
+      <!-- Actuality Column -->
+      <ng-container matColumnDef="actuality">
+        <th mat-header-cell *matHeaderCellDef mat-sorr-header> Félév </th>
+        <td mat-cell *matCellDef="let row"> {{row.active}} </td>
+      </ng-container>
+
+      <!-- Active Column -->
+      <ng-container matColumnDef="aktual">
+        <th mat-header-cell *matHeaderCellDef mat-sorr-header> Aktuális </th>
+        <td mat-cell *matCellDef="let row"> {{row.aktuality}} </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Műveletek </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-mini-fab color="warn" (click)="delete(row);" class="delete-btn">
+            <mat-icon class="mat-18">delete</mat-icon>
+          </button>
+          <button mat-mini-fab color="primary" (click)="openDialog();">
+            <mat-icon class="mat-18">edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row
+
+        *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" class="table-footer"></mat-paginator>
+  </div>
+</div>

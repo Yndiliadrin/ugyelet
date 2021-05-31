@@ -1,0 +1,54 @@
+.add-btn {
+  display: block;
+  position: relative;
+  margin: auto;
+  margin-bottom: 2%;
+}
+
+.mat-column-name {
+  font-size: large;
+}
+
+
+.table-container {
+
+  width: 70%;
+  position: relative;
+  margin: auto;
+
+  #search {
+    width: 100%;
+  }
+
+  .mat-elevation-z8 {
+    width: 100%;
+    table {
+      width: 100%;
+
+      tr {
+        z-index: 7;
+      }
+
+      tr:hover {
+        transform: scaleX(1.01);
+        cursor:pointer;
+        color:red;
+        border: 3px solid black;
+        border-radius: 3em;
+      }
+    }
+  }
+}
+
+table{
+  width: 100%;
+}
+
+.delete-btn {
+  z-index: 43;
+}
+
+#copyright {
+  position: fixed;
+  bottom: 0;
+}

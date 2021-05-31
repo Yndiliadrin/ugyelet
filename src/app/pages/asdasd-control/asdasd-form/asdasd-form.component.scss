@@ -1,0 +1,30 @@
+form {
+
+  .choose {
+    width: 46%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+
+  .text {
+    width: 100%;
+    margin-top: 5%;
+
+    textarea {
+      resize: none;
+    }
+  }
+
+  button {
+    width:100px;
+    transform: skew(-20deg);
+    -webkit-transform: skew(-20deg);
+
+    margin-right: 2%;
+  }
+
+  #chbox {
+    margin-top: 2.5%;
+    margin-bottom: 10%;
+  }
+}
