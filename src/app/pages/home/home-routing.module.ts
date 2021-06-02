@@ -1,6 +1,7 @@
 import { HomeComponent } from './home.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { AuthGuard } from 'src/app/shared/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo:'index', pathMatch:'full' },
@@ -24,7 +25,8 @@ const routes: Routes = [
         path: 'asdasdControl',
         loadChildren: () => import('./../asdasd-control/asdasd-control.module').then(m => m.AsdasdControlModule)
       }
-    ]
+    ],
+    canActivate: [AuthGuard]
   },
 ];
 

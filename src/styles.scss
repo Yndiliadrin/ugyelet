@@ -46,7 +46,7 @@ body {
 }
 /* width */
 ::-webkit-scrollbar {
-  width: 20px;
+  width: 0.5em;
 }
 
 /* Track */
@@ -59,4 +59,9 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #EAF27C;
   border-radius: 10px;
+}
+
+.credit {
+  position: fixed;
+  bottom: 0;
 }

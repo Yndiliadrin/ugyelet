@@ -12,14 +12,18 @@
       <mat-form-field class="max-width">
         <mat-label>Jelszó</mat-label>
         <input matInput placeholder="********" formControlName="password" required [type]="hide ? 'password' : 'text'">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
       <br>
-      <button type="submit" mat-raised-button color="primary" class="max-width"
-        [disabled]="form.invalid">BEJELENTKEZÉS</button>
+      <button type="submit" mat-raised-button color="primary" class="max-width" matRipple
+        [disabled]="form.invalid">BEJELENTKEZÉS
+      </button>
+      <button type="button" mat-raised-button class="max-width" style="background-color: red;" (click)="loginWithGoogle()" matRipple>
+        <b>Bejelentkezés google fiókkal</b>
+      </button>
     </form>
-    <button mat-button color="accent" (click)="navTo('/regiszt')" class="max-width">REGISZTRÁCIÓ</button>
+    <button mat-button color="accent" (click)="navTo('/regiszt')" class="max-width" matRipple>REGISZTRÁCIÓ</button>
   </mat-card>
 </div>

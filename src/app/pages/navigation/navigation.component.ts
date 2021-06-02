@@ -1,3 +1,4 @@
+import { AuthService } from './../../service/auth.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,14 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  user?: string | null;
+
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
+    this.user = localStorage.getItem("user");
   }
 
   logout(): void {
-    console.log("logging out");
-    //this.authService.logout();
+    this.authService.logout();
+    localStorage.clear();
     this.router.navigateByUrl('login');
   }
 

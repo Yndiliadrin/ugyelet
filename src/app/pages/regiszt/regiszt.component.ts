@@ -1,3 +1,4 @@
+import { AuthService } from './../../service/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Component, HostListener, OnInit } from '@angular/core';
@@ -38,13 +39,22 @@ export class RegisztComponent implements OnInit {
   }
 
   regiszt() {
-    throw new Error('Method not implemented.');
+    if (this.form.valid) {
+      if (this.matchingPasswords()) {
+        let name = this.form.get('f_name')?.value + " " + this.form.get('s_name')?.value;
+        try {
+          this.authService.regiszt(this.form.get('email')?.value, this.form.get('password')?.value, name);
+          this.navTo("/login");
+        } catch (error) {
+          this.alertMessage = "Az e-mail cím már használatban van.";
+        }
+      }
+    }
   }
 
-
-
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {

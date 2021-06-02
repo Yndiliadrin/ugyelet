@@ -1,3 +1,4 @@
+import { AuthService } from './../../service/auth.service';
 import { Router } from '@angular/router';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -28,10 +29,13 @@ export class LoginComponent implements OnInit {
   }
 
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    public authService: AuthService
+  ) { }
 
   ngOnInit(): void {
-    //this.authService.logout();
+    this.authService.logout();
   }
 
   navTo(url: string): void {
@@ -39,21 +43,30 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log(this.form.value);
 
-    /*if (this.form.invalid) {
+    if (this.form.invalid) {
       return;
     }
     this.authService.login(this.form.value.email, this.form.value.password).then(
       result => {
-        console.log(result);
+        localStorage.setItem("user", result.user.displayName);
         this.navTo('/home');
       },
       (error) => {
         this.alertMessage = (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password')
           ? this.alertsList.user() : this.alertsList.server();
       }
-    );*/
+    );
+  }
+
+  loginWithGoogle() {
+    this.authService.GoogleAuth().then(
+      result => {
+        localStorage.setItem("user", result.user.displayName);
+        this.navTo("/home");
+    }, (error) => {
+        this.alertMessage = "Hálózati hiba történt";
+    });
   }
 
 }

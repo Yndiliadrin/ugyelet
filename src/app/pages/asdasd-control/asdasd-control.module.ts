@@ -11,6 +11,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AsdasdControlComponent } from './asdasd-control.component';
 import { AsdasdControlRoutingModule } from './asdasd-control-routing.module';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -33,6 +34,7 @@ import { AsdasdControlRoutingModule } from './asdasd-control-routing.module';
     MatFormFieldModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatSortModule,
     MatTableModule
   ],
   exports: [AsdasdControlComponent]

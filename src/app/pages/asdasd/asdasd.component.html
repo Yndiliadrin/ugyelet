@@ -1,1 +1,54 @@
-<p>asdasd works!</p>
+<ng-container [formGroup]="form" >
+  <mat-card class="margin-bottom" formArrayName="asdasd" class="asdasdContainer">
+    <mat-card-header>
+      <mat-card-title>HIBÁK</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <button mat-raised-button color="secondary" class="max-width margin-bottom" (click)="addAsdasd()">
+        <mat-icon>add</mat-icon>
+        Hiba
+      </button>
+      <span *ngFor="let item of getAsdasd.controls; let i = index" class="max-width" style="display: flex;" class="asdasd">
+
+        <mat-form-field [formGroupName]="i" class="asdasdField">
+          <mat-select placeholder="Kategória" name="item" formControlName="category" class="choose">
+            <mat-option *ngFor="let category of categories" [value]="category" (click)="filter(category)">
+              {{category}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field [formGroupName]="i" class="asdasdField">
+          <mat-select placeholder="Formaszöveg" name="item" formControlName="text" class="choose">
+            <mat-option *ngFor="let asdasd of choosable" [value]="asdasd.text"  (click)="chooseAsdasd(i)">
+              {{asdasd.text}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p class="asdasdFieldValue">
+          {{getAsdasd.controls[i].get("text")?.value}}
+        </p>
+        <button mat-icon-button color="warn" (click)="removeAsdasd(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </span>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+<br>
+<mat-card class="container">
+  <mat-toolbar>
+    <button mat-raised-button class="copy-btn" color="accent" [cdkCopyToClipboard]="formGood">
+      <b>FORMAJÓ</b>
+    </button>
+    <button mat-raised-button class="copy-btn" color="primary" [cdkCopyToClipboard]="fe + loremIpsum.value + '\n'+'\n' + fv" [disabled]="loremIpsum.invalid">
+      <b>FORMAROSZ</b>
+    </button>
+  </mat-toolbar>
+  <br>
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Formaszöveg</mat-label>
+    <textarea matInput rows="20" class="text max-width" [formControl]="loremIpsum" required></textarea>
+  </mat-form-field>
+</mat-card>
+

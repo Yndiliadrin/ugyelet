@@ -1,0 +1,39 @@
+.container {
+  width: 50%;
+}
+
+.container {
+  position: relative;
+  margin: auto;
+
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 0;
+    height: 20%;
+    resize: none;
+  }
+}
+
+.copy-btn {
+  position: relative;
+  margin: auto 2% auto 2%;
+  transform: skew(-20deg);
+  -webkit-transform: skew(-20deg);
+  width: 46%;
+}
+
+.asdasdContainer {
+  justify-content: space-evenly;
+  .asdasd {
+    .asdasdField{
+      width: 24%;
+      margin: auto 0.5% auto 0.5%;
+    }
+
+    .asdasdFieldValue {
+      width: 50%;
+    }
+  }
+
+}
