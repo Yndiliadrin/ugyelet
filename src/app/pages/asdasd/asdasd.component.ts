@@ -4,15 +4,18 @@ import { FbBaseService } from './../../service/fb-base.service';
 import { AsdasdModel } from './../../shared/model/asdasd.model';
 import { CATEGORIES } from './../../shared/model/categories.model';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { getAsdasdForm } from 'src/app/shared/forms/asdasd.form';
+import { ReplaySubject, Subject } from 'rxjs';
+import { MatSelect } from '@angular/material/select';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-asdasd',
   templateUrl: './asdasd.component.html',
   styleUrls: ['./asdasd.component.scss']
 })
-export class AsdasdComponent implements OnInit {
+export class AsdasdComponent implements OnInit, OnDestroy {
 
   categories = CATEGORIES;
   asdasd?: AsdasdModel[] | null = null;
@@ -22,13 +25,19 @@ export class AsdasdComponent implements OnInit {
   copyCat: string | null = null;
   fe = FORMA_ROSSZ_ELEJE;
   fv = FORMA_ROSSZ_VEGE + localStorage.getItem("user") +"\nSZTE EHÖK";
-  formGood = FORMA_JO;
+  formGood = FORMA_JO + localStorage.getItem("user") +"\nSZTE EHÖK";
 
   form: FormGroup = new FormGroup({
     asdasd: new FormArray([])
   });
 
   loremIpsum: FormControl = new FormControl('');
+
+  public asdasdFilterCtrl: FormControl = new FormControl();
+  public filteredChoosable: ReplaySubject<AsdasdModel[]> = new ReplaySubject<AsdasdModel[]>(1);
+
+  @ViewChild('singleSelect', { static: true }) singleSelect?: MatSelect;
+  protected _onDestroy = new Subject<void>();
 
   constructor(
     private service: FbBaseService
@@ -38,6 +47,16 @@ export class AsdasdComponent implements OnInit {
     this.service.get("asdasd").subscribe(result => {
       this.asdasd = result as AsdasdModel[];
     });
+    this.asdasdFilterCtrl.valueChanges
+    .pipe(takeUntil(this._onDestroy))
+    .subscribe(() => {
+      this.filterChoosabble();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._onDestroy.next();
+    this._onDestroy.complete();
   }
 
 
@@ -56,7 +75,6 @@ export class AsdasdComponent implements OnInit {
   addAsdasd(): void {
     const idFormArray = this.form?.get('asdasd') as FormArray;
     idFormArray.push(getAsdasdForm());
-    this.stuff();
   }
 
   removeAsdasd(index: number): void {
@@ -90,13 +108,23 @@ export class AsdasdComponent implements OnInit {
         this.choosable?.push(x);
       }
     }
+    this.filterChoosabble();
   }
 
-  stuff(): void {
-    let x = this.getAsdasd;
-    for (let index = 0; index < x.length; index++) {
-      console.log(x.get(index+"")?.get('text')?.value);
+  protected filterChoosabble() {
+    if (!this.choosable) {
+      return;
     }
+    let search = this.asdasdFilterCtrl.value;
+    if (!search) {
+      this.filteredChoosable.next(this.choosable.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    this.filteredChoosable.next(
+      this.choosable.filter(result => result.text.toLowerCase().indexOf(search) > -1)
+    );
   }
 
 }

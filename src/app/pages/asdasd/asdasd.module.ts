@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 
@@ -30,7 +31,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     MatFormFieldModule,
     MatCardModule,
     MatToolbarModule,
-    ClipboardModule
+    ClipboardModule,
+    NgxMatSelectSearchModule
   ],
   exports: [AsdasdComponent]
 })

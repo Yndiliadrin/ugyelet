@@ -19,12 +19,23 @@
         </mat-form-field>
 
         <mat-form-field [formGroupName]="i" class="asdasdField">
-          <mat-select placeholder="Formaszöveg" name="item" formControlName="text" class="choose">
-            <mat-option *ngFor="let asdasd of choosable" [value]="asdasd.text"  (click)="chooseAsdasd(i)">
+
+          <mat-select placeholder="Formaszöveg" name="item" formControlName="text" class="choose" #singleSelect>
+
+            <mat-option>
+              <ngx-mat-select-search [formControl]="asdasdFilterCtrl">
+                <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+              </ngx-mat-select-search>
+            </mat-option>
+
+
+            <mat-option *ngFor="let asdasd of filteredChoosable | async" [value]="asdasd.text"  (click)="chooseAsdasd(i)">
               {{asdasd.text}}
             </mat-option>
           </mat-select>
+
         </mat-form-field>
+
         <p class="asdasdFieldValue">
           {{getAsdasd.controls[i].get("text")?.value}}
         </p>
